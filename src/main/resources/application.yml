@@ -1,0 +1,26 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb;MODE=MYSQL
+    driver-class-name: org.h2.Driver
+    username: order
+    password: order2022
+  redis:
+    host: 127.0.0.1
+    port: 6362
+  h2:
+    console:
+      enabled: true
+    
+  jpa:
+    database: h2
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        format-sql: true
+        show-sql: true
+
+jwt:
+  secret: V1hwS1YyRnRUblJXYWtKT1ZqTlNjMXBXVWt0TlYwcDBZa2hvYTFZeFZqWlplazVUWlZkSmVVNVhOVTlUUlRSNFYxUktUMkpIVFhwVQpWRVpxVFRCS05WbFdZekZpYXpWdVVGUXdQUW89
