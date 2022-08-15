@@ -81,10 +81,19 @@ public class UserService {
     회원 상세 조회
      */
 	public UserResponse getUser(String email, Long userId) {
-		User user = userQRepository.findByUserId(userId);
-		ExceptionUtil.isException404(user==null, "조회하고자 하는 유저 정보가 없습니다.");
-		ExceptionUtil.isException403(!user.getEmail().equals(email), "유저 정보 조회 권한이 없습니다.");
-
+		User user = new User(getUserEntity(email, userId));
 		return new UserResponse(user);
+	}
+
+	/*
+	UserEntity 조회
+	 */
+	public UserEntity getUserEntity(String email, Long userId){
+		UserEntity userEntity = userQRepository.findByUserId(userId);
+
+		ExceptionUtil.isException404(userEntity==null, "조회하고자 하는 유저 정보가 없습니다.");
+		ExceptionUtil.isException403(!userEntity.getEmail().equals(email), "유저 정보 조회 권한이 없습니다.");
+
+		return userEntity;
 	}
 }

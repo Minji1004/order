@@ -1,22 +1,17 @@
 package com.practice.store.user.entity;
 
-import javax.persistence.*;
-
 import com.practice.store.user.model.request.SignUpRequest;
-
 import com.practice.store.user.type.Sex;
 import com.practice.store.user.utils.EncryptUtil;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
+import javax.persistence.*;
 import java.security.NoSuchAlgorithmException;
-import java.time.LocalDateTime;
 
 @Entity
 @Getter
-@Setter
 @NoArgsConstructor
 @Table(name = "USER_TABLE")
 public class UserEntity {

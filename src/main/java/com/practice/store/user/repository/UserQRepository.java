@@ -1,5 +1,6 @@
 package com.practice.store.user.repository;
 
+import com.practice.store.user.entity.UserEntity;
 import com.practice.store.user.model.QUser;
 import com.practice.store.user.model.User;
 import com.querydsl.core.BooleanBuilder;
@@ -81,9 +82,9 @@ public class UserQRepository {
         return builder.and(userEntity.email.containsIgnoreCase(email));
     }
 
-    public User findByUserId(Long userId) {
+    public UserEntity findByUserId(Long userId) {
         return queryFactory
-                .select(new QUser(userEntity))
+                .select(userEntity)
                 .from(userEntity)
                 .where(
                         userEntity.userId.eq(userId)
