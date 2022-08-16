@@ -4,6 +4,7 @@ import com.practice.store.order.entity.OrderEntity;
 import com.practice.store.order.model.response.OrderResponse;
 import com.practice.store.order.repository.OrderQRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class InternalOrderService {

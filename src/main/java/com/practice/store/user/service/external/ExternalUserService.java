@@ -13,6 +13,7 @@ import com.practice.store.user.repository.UserQRepository;
 import com.practice.store.user.service.internal.InternalUserService;
 import com.practice.store.user.service.internal.SignUpValidationService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -23,6 +24,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ExternalUserService {
