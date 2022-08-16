@@ -22,19 +22,6 @@ public class UserQRepository {
     private final JPAQueryFactory queryFactory;
 
     /*
-    email가 같은 유저 리스트 조회
-     */
-    public List<User> findByEmail(String email) {
-        return queryFactory
-                .select(new QUser(userEntity))
-                .from(userEntity)
-                .where(
-                        userEntity.email.eq(email)
-                )
-                .fetch();
-    }
-
-    /*
     Paging 처리 되는 유저 리스트 조회
  */
     public List<User> findByNameAndEmail(String name, String email, Pageable pageable) {
@@ -80,15 +67,5 @@ public class UserQRepository {
 
         BooleanBuilder builder = new BooleanBuilder();
         return builder.and(userEntity.email.containsIgnoreCase(email));
-    }
-
-    public UserEntity findByUserId(Long userId) {
-        return queryFactory
-                .select(userEntity)
-                .from(userEntity)
-                .where(
-                        userEntity.userId.eq(userId)
-                )
-                .fetchFirst();
     }
 }

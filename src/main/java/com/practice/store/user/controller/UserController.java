@@ -3,19 +3,15 @@ package com.practice.store.user.controller;
 import com.practice.store.auth.annotation.CheckLogin;
 import com.practice.store.auth.annotation.ParamInAccessToken;
 import com.practice.store.auth.type.AccessTokenParamType;
-import com.practice.store.user.model.response.UserListResponse;
-import com.practice.store.user.model.response.UserResponse;
-import org.springframework.http.MediaType;
+import com.practice.store.config.model.response.CommonListResponse;
+import com.practice.store.user.model.response.UserDetailResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.practice.store.user.entity.UserEntity;
 import com.practice.store.user.model.request.SignUpRequest;
 import com.practice.store.user.service.UserService;
 
 import lombok.RequiredArgsConstructor;
-
-import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -37,7 +33,7 @@ public class UserController {
 	 */
 	@CheckLogin
 	@GetMapping
-	public ResponseEntity<UserListResponse> getUserList(
+	public ResponseEntity<CommonListResponse> getUserList(
 			@RequestParam(name = "name", required = false) String name,
 			@RequestParam(name = "email", required = false) String email,
 			@RequestParam(name = "currentPage", required = true) Integer currentPage,
@@ -51,7 +47,7 @@ public class UserController {
 	 */
 	@CheckLogin
 	@GetMapping("/detail/{userId}")
-	public ResponseEntity<UserResponse> getUser(
+	public ResponseEntity<UserDetailResponse> getUser(
 			@ParamInAccessToken(value = AccessTokenParamType.EMAIL) String email,
 			@PathVariable("userId") Long userId) throws Exception {
 		return ResponseEntity.ok().body(userService.getUser(email, userId));

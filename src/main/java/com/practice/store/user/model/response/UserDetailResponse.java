@@ -5,7 +5,7 @@ import com.practice.store.user.type.Sex;
 import lombok.Getter;
 
 @Getter
-public class UserResponse {
+public class UserDetailResponse {
     private Long userId;
     private String name;
     private String nickname;
@@ -13,7 +13,7 @@ public class UserResponse {
     private String mobile;
     private Sex sex;
 
-    public UserResponse(User user){
+    public UserDetailResponse(User user){
         this.userId = user.getUserId();
         this.name = user.getName();
         this.nickname = user.getNickname();

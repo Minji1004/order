@@ -1,20 +1,20 @@
 package com.practice.store.user.service;
 
 import com.practice.store.config.exception.util.ExceptionUtil;
-import com.practice.store.user.model.User;
-import com.practice.store.user.repository.UserQRepository;
+import com.practice.store.user.entity.UserEntity;
+import com.practice.store.user.repository.UserIRepository;
 import com.practice.store.user.utils.VadliationUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
 public class SignUpValidationService {
 
-    private final UserQRepository userQRepository;
+    private final UserIRepository userIRepository;
 
     public void checkName(String name) {
         ExceptionUtil.isException400(!StringUtils.hasText(name), "이름을 입력해 주세요.");
@@ -39,7 +39,7 @@ public class SignUpValidationService {
         ExceptionUtil.isException400(!StringUtils.hasText(email), "이메일을 입력해 주세요.");
         ExceptionUtil.isException400(!VadliationUtil.isEmail(email), "이메일 형식을 확인해주세요.");
 
-        List<User> userList = userQRepository.findByEmail(email);
-        ExceptionUtil.isException400(userList.size()>0, "이미 존재하는 아이디(email)입니다.");
+        UserEntity userEntity = userIRepository.findByEmail(email).orElse(null);
+        ExceptionUtil.isException400(Objects.nonNull(userEntity), "이미 존재하는 아이디(email)입니다.");
     }
 }
