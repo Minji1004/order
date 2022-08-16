@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,9 +29,7 @@ public class ExternalOrderService {
 
         UserEntity userEntity = internalUserService.getUserEntity(email, userId);
         String orderNo = generatedOrderNo();
-        // itemName => emoji를 포함한 모든 문자.
-        // TimeZone을 고려한 시간 정보. -> UTC
-        OrderEntity orderEntity = new OrderEntity(orderNo, orderRequest.getItemName(), LocalDateTime.now(), userEntity);
+        OrderEntity orderEntity = new OrderEntity(orderNo, orderRequest.getItemName(), LocalDateTime.now(ZoneOffset.UTC), userEntity);
 
         orderIRepository.save(orderEntity);
     }
