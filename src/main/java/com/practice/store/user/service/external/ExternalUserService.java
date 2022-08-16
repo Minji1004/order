@@ -1,6 +1,8 @@
 package com.practice.store.user.service.external;
 
 import com.practice.store.config.model.response.CommonListResponse;
+import com.practice.store.order.model.response.OrderResponse;
+import com.practice.store.order.service.internal.InternalOrderService;
 import com.practice.store.user.entity.UserEntity;
 import com.practice.store.user.model.User;
 import com.practice.store.user.model.request.SignUpRequest;
@@ -14,11 +16,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -26,9 +29,10 @@ public class ExternalUserService {
 
 	private final SignUpValidationService signUpValidationService;
 	private final InternalUserService internalUserService;
+	private final InternalOrderService internalOrderService;
+
 	private final UserIRepository userIRepoistory;
 	private final UserQRepository userQRepository;
-	private final RedisTemplate redisTemplate;
 
 	/*
 	회원 가입
@@ -50,9 +54,18 @@ public class ExternalUserService {
 		List<User> userList = userQRepository.findByNameAndEmail(name, email, pageable);
 		int totalCount = userQRepository.getTotalCountByNameNadEmail(name, email);
 
-		//Map<Long, OrderResponse> lastOrderMap =
+		List<Long> userIdList = userList.stream().map(User::getUserId).collect(Collectors.toList());
+		Map<Long, OrderResponse> lastOrderMap = internalOrderService.getLastOrderMap(userIdList);
 
-		List<UserListResponse> userResponseList = new ArrayList<>(); //userList.stream().map(UserListResponse::new).collect(Collectors.toList());
+		List<UserListResponse> userResponseList =
+				userList
+						.stream()
+						.map(user -> {
+							OrderResponse orderResponse = lastOrderMap.get(user.getUserId());
+							return new UserListResponse(user, orderResponse);
+						})
+						.collect(Collectors.toList());
+
 		return new CommonListResponse(new PageImpl<UserListResponse>(userResponseList, pageable, totalCount));
     }
 

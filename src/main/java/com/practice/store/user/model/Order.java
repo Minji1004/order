@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Getter
 public class Order {
@@ -14,8 +15,10 @@ public class Order {
     private LocalDateTime orderDateTime;
 
     public Order(OrderResponse orderResponse){
-        this.orderNo = orderResponse.getOrderNo();
-        this.itemName = orderResponse.getItemName();
-        this.orderDateTime = orderResponse.getOrderDateTime();
+        if(Objects.nonNull(orderResponse)){
+            this.orderNo = orderResponse.getOrderNo();
+            this.itemName = orderResponse.getItemName();
+            this.orderDateTime = orderResponse.getOrderDateTime();
+        }
     }
 }
