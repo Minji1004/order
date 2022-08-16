@@ -29,7 +29,7 @@ public class ExternalOrderService {
 
         UserEntity userEntity = internalUserService.getUserEntity(email, userId);
         String orderNo = generatedOrderNo();
-        OrderEntity orderEntity = new OrderEntity(orderNo, orderRequest.getItemName(), LocalDateTime.now(ZoneOffset.UTC), userEntity);
+        OrderEntity orderEntity = new OrderEntity(orderNo, orderRequest.getItemName(), LocalDateTime.now(), userEntity);
 
         orderIRepository.save(orderEntity);
     }
