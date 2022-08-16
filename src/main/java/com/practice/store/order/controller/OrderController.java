@@ -4,7 +4,7 @@ import com.practice.store.auth.annotation.ParamInAccessToken;
 import com.practice.store.auth.type.AccessTokenParamType;
 import com.practice.store.order.model.request.OrderRequest;
 import com.practice.store.order.model.response.OrderResponse;
-import com.practice.store.order.service.OrderService;
+import com.practice.store.order.service.external.ExternalOrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +16,7 @@ import java.util.List;
 @RequestMapping("/v1/api/order")
 public class OrderController {
 
-    private final OrderService orderService;
+    private final ExternalOrderService orderService;
 
     /*
     단일 회원의 주문 목록 조회

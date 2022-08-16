@@ -1,4 +1,4 @@
-package com.practice.store.user.service;
+package com.practice.store.user.service.internal;
 
 import com.practice.store.config.exception.util.ExceptionUtil;
 import com.practice.store.user.entity.UserEntity;

@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.practice.store.user.model.request.SignUpRequest;
-import com.practice.store.user.service.UserService;
+import com.practice.store.user.service.external.ExternalUserService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -17,7 +17,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/v1/api/user")
 public class UserController {
-	private final UserService userService;
+	private final ExternalUserService userService;
 
 	/*
 	회원 가입
