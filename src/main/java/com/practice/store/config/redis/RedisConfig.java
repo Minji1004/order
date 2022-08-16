@@ -28,7 +28,7 @@ public class RedisConfig {
 
     @PreDestroy
     public void stopRedis() {
-        if (redisServer != null) {
+        if (redisServer.isActive()) {
             redisServer.stop();
         }
     }

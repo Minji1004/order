@@ -18,21 +18,28 @@ public class SignUpValidationService {
 
     public void checkName(String name) {
         ExceptionUtil.isException400(!StringUtils.hasText(name), "이름을 입력해 주세요.");
-        ExceptionUtil.isException400(!VadliationUtil.isEnglishAndKorean(name), "한글 또는 영문으로 입력해 주세요.");
+        ExceptionUtil.isException400(!VadliationUtil.isEnglishAndKorean(name), "이름을 한글 또는 영문으로 입력해 주세요.");
+        ExceptionUtil.isException400(VadliationUtil.isLongerLength(name, 20), "이름을 20자 이하로 입력해 주세요.");
+    }
+
+    public void checkNickName(String nickname) {
+        ExceptionUtil.isException400(!StringUtils.hasText(nickname), "닉네임을 입력해 주세요.");
+        ExceptionUtil.isException400(!VadliationUtil.isEnglish(nickname), "닉네임을 영문으로 입력해 주세요.");
+        ExceptionUtil.isException400(VadliationUtil.isLongerLength(nickname, 30), "닉네임을 30자 이하로 입력해 주세요.");
+    }
+
+    public void checkPassword(String password) {
+        ExceptionUtil.isException400(!StringUtils.hasText(password), "비밀번호를 입력해 주세요.");
+        ExceptionUtil.isException400(VadliationUtil.isShorterLength(password, 10), "비밀번호를 10자 이상으로 입력해 주세요.");
+        ExceptionUtil.isException400(!VadliationUtil.isPassword(password), "비밀번호는 영문 대문자, 영문 소문자, 특수 문자, 숫자 각 1개 이상씩 포함해야 합니다.");
     }
 
     public void checkMobile(String mobile)throws Exception {
         ExceptionUtil.isException400(!StringUtils.hasText(mobile), "휴대폰 번호를 입력해 주세요.");
         ExceptionUtil.isException400(mobile.charAt(0) != '0', "휴대폰 번호를 확인해 주세요.");
         ExceptionUtil.isException400(VadliationUtil.isShorterLength(mobile, 9), "휴대폰 번호를 입력해 주세요.");
-        ExceptionUtil.isException400(VadliationUtil.isLongerLength(mobile, 11), "휴대폰 번호를 11자 이하로 입력해 주세요.");
+        ExceptionUtil.isException400(VadliationUtil.isLongerLength(mobile, 20), "휴대폰 번호를 20자 이하로 입력해 주세요.");
         ExceptionUtil.isException400(!VadliationUtil.isNumber(mobile), "휴대폰 번호는 숫자만 입력해 주세요.");
-    }
-
-    public void checkPassword(String password) {
-        ExceptionUtil.isException400(!StringUtils.hasText(password), "비밀번호를 입력해 주세요.");
-        ExceptionUtil.isException400(VadliationUtil.isShorterLength(password, 8), "8자 이상으로 입력해 주세요.");
-        ExceptionUtil.isException400(VadliationUtil.isLongerLength(password, 16), "16자 이하로 입력해 주세요.");
     }
 
     public void checkEmail(String email) {

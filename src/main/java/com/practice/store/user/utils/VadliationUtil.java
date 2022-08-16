@@ -58,4 +58,27 @@ public class VadliationUtil {
 
         return false;
     }
+
+    /*
+    str이 영어로만 구성되어 있으면 true
+     */
+    public static boolean isEnglish(String str) {
+        if(Pattern.compile("^[a-zA-Z]*$").matcher(str).find()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /*
+    str이 password 규칙에 맞으면 true
+    비밀번호는 영문 대문자, 영문 소문자, 특수 문자, 숫자 각 1개 이상씩 포함, 8자리 이상
+     */
+    public static boolean isPassword(String str) {
+        if(Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])[A-Za-z0-9!@#$%^&*]{8,}$").matcher(str).find()) {
+            return true;
+        }
+
+        return  false;
+    }
 }

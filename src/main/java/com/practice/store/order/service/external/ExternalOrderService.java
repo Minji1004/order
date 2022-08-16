@@ -27,8 +27,9 @@ public class ExternalOrderService {
     public void order(String email, Long userId, OrderRequest orderRequest) {
 
         UserEntity userEntity = internalUserService.getUserEntity(email, userId);
-        // orderNo 중복 체크 해야함.
         String orderNo = generatedOrderNo();
+        // itemName => emoji를 포함한 모든 문자.
+        // TimeZone을 고려한 시간 정보. -> UTC
         OrderEntity orderEntity = new OrderEntity(orderNo, orderRequest.getItemName(), LocalDateTime.now(), userEntity);
 
         orderIRepository.save(orderEntity);

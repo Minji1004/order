@@ -40,9 +40,11 @@ public class ExternalUserService {
 	회원 가입
 	 */
 	public void signUp(SignUpRequest signUpRequest) throws Exception {
+
 		signUpValidationService.checkName(signUpRequest.getName());
-		signUpValidationService.checkMobile(signUpRequest.getMobile());
+		signUpValidationService.checkNickName(signUpRequest.getNickname());
 		signUpValidationService.checkPassword(signUpRequest.getPassword());
+		signUpValidationService.checkMobile(signUpRequest.getMobile());
 		signUpValidationService.checkEmail(signUpRequest.getEmail());
 
 		userIRepoistory.save(UserEntity.of(signUpRequest));
