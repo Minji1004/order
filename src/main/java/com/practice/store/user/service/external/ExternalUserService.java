@@ -18,6 +18,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +40,7 @@ public class ExternalUserService {
 	/*
 	회원 가입
 	 */
+	@Transactional
 	public void signUp(SignUpRequest signUpRequest) throws Exception {
 
 		signUpValidationService.checkName(signUpRequest.getName());
@@ -53,6 +55,7 @@ public class ExternalUserService {
 	/*
 	회원 목록 조회
 	 */
+	@Transactional(readOnly = true)
     public CommonListResponse getUserList(String name, String email, Integer currentPage, Integer pageSize) {
 		Pageable pageable = PageRequest.of(currentPage, pageSize);
 		List<User> userList = userQRepository.findByNameAndEmail(name, email, pageable);
@@ -76,6 +79,7 @@ public class ExternalUserService {
     /*
     회원 상세 조회
      */
+	@Transactional(readOnly = true)
 	public UserDetailResponse getUser(String email, Long userId) {
 		User user = new User(internalUserService.getUserEntity(email, userId));
 		return new UserDetailResponse(user);

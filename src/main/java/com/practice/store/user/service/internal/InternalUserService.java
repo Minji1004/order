@@ -6,6 +6,7 @@ import com.practice.store.user.repository.UserIRepository;
 import com.practice.store.user.utils.EncryptUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.security.NoSuchAlgorithmException;
 
@@ -18,6 +19,7 @@ public class InternalUserService {
     /*
     UserEntity 조회
      */
+    @Transactional(readOnly = true)
     public UserEntity getUserEntity(String email, Long userId){
         UserEntity userEntity = userIRepoistory.findById(userId).orElse(null);
 
@@ -28,8 +30,9 @@ public class InternalUserService {
     }
 
     /*
-user 로그인 정보 확인
- */
+    user 로그인 정보 확인
+     */
+    @Transactional(readOnly = true)
     public boolean checkUser(String email, String password){
         UserEntity userEntity = userIRepoistory.findByEmail(email).orElse(null);
         if(userEntity == null){

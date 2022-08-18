@@ -9,9 +9,9 @@ import com.practice.store.user.entity.UserEntity;
 import com.practice.store.user.service.internal.InternalUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.time.ZoneOffset;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,6 +25,7 @@ public class ExternalOrderService {
     /*
     주문하기
      */
+    @Transactional
     public void order(String email, Long userId, OrderRequest orderRequest) {
 
         UserEntity userEntity = internalUserService.getUserEntity(email, userId);
@@ -51,6 +52,7 @@ public class ExternalOrderService {
     /*
     주문 목록 조회
      */
+    @Transactional(readOnly = true)
     public List<OrderResponse> getOrderList(String email, Long userId) {
         UserEntity userEntity = internalUserService.getUserEntity(email, userId);
         List<OrderEntity> orderEntityList = orderIRepository.findAllByUser(userEntity);

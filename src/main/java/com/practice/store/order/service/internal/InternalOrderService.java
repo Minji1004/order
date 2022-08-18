@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
@@ -24,6 +25,7 @@ public class InternalOrderService {
     /*
     유저 별 마지막 주문 정보 조회
      */
+    @Transactional(readOnly = true)
     public Map<Long, OrderResponse> getLastOrderMap(List<Long> userIdList) {
         List<OrderEntity> lastOrderList = orderQRepository.getLastOrderList(userIdList);
         Map<Long, List<OrderEntity>> orderEntityMap = lastOrderList
