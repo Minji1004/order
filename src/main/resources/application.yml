@@ -10,7 +10,7 @@ spring:
     password: order2022
   redis:
     host: 127.0.0.1
-    port: 6378
+    port: 6375
   h2:
     console:
       enabled: true
@@ -26,6 +26,8 @@ spring:
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
         format-sql: true
         show-sql: true
+
+logging.level.org.hibernate.SQL: DEBUG
 
 jwt:
   secret: V1hwS1YyRnRUblJXYWtKT1ZqTlNjMXBXVWt0TlYwcDBZa2hvYTFZeFZqWlplazVUWlZkSmVVNVhOVTlUUlRSNFYxUktUMkpIVFhwVQpWRVpxVFRCS05WbFdZekZpYXpWdVVGUXdQUW89
